@@ -8,8 +8,9 @@ import javax.imageio.ImageIO;
 public class Sprite {
 	private int w, h;
 	private int[] pixels;
+	private int zIndex = 0;
 	
-	public Sprite(String path) {
+	public Sprite(String path, int zIndex) {
 		BufferedImage image = null;
 		
 		try {
@@ -22,14 +23,16 @@ public class Sprite {
 		w = image.getWidth();
 		h = image.getHeight();
 		pixels = image.getRGB(0, 0, w, h, null, 0, w);
+		this.zIndex = zIndex;
 		
 		image.flush();
 	}
 	
-	public Sprite(int[] p) {
+	public Sprite(int[] p, int zIndex) {
 		w = (int)Math.sqrt(p.length);
 		h = (int)Math.sqrt(p.length);
 		pixels = p;
+		this.zIndex = zIndex;
 	}
 
 	public int getW() {
@@ -50,5 +53,13 @@ public class Sprite {
 
 	public int[] getPixels() {
 		return pixels;
+	}
+
+	public int getZIndex() {
+		return zIndex;
+	}
+
+	public void setZIndex(int zIndex) {
+		this.zIndex = zIndex;
 	}
 }

@@ -7,7 +7,7 @@ public class Font {
 	private final String characters = " _0123456789abcdefghijklmnopqrstuvwxyzABCDEFHIJKLMNOPQRSTUVWXYZ?!.,;:/$*+=()[]{}#\"'-<>";
 	
 	public Font(String path) {
-		font = new Sprite(path);
+		font = new Sprite(path, 0);
 		
 		offsets = new int[characters.length()];
 		widths = new int[characters.length()];

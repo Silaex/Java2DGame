@@ -61,12 +61,13 @@ public class GameController implements Runnable {
 			}
 			
 			// Game Loop
-			// Clear frame
-			// Initialize abstract methods
 			renderer.drawText("fps: " + fps, 0, HEIGHT - 16, Color.white.getRGB());
+			renderer.alphaProcessing();
+			// Initialize abstract methods
 			aGameController.render(this, renderer);
 			window.update();
 			input.update();
+			// Clear frame
 			renderer.clear();
 			
 			try {
@@ -78,7 +79,7 @@ public class GameController implements Runnable {
 			
 			// When 1 second is passed
 			if (System.currentTimeMillis() - lastTimer > 1000) {
-				System.out.println(ticks + " ticks, " + fps + " fps");
+//				System.out.println(ticks + " ticks, " + fps + " fps");
 				lastTimer += 1000;
 				fps = frames;
 				frames = 0;
