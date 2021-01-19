@@ -16,7 +16,7 @@ public class GameController implements Runnable {
 	private Thread thread;
 	
 	private boolean running = false;
-	private float FRAME_RATE = 60.0f;
+	private float FRAME_RATE = 144.0f;
 	
 	
 	public GameController (AbstractGameController agc) {
@@ -46,6 +46,7 @@ public class GameController implements Runnable {
 		int ticks = 0;
 		int fps = 0;
 		float deltaTime = 1 / FRAME_RATE;
+		Time.deltaTime = deltaTime;
 		
 		while (running) {
 			long now = System.nanoTime();
@@ -55,7 +56,7 @@ public class GameController implements Runnable {
 			
 			while (elapsedTime >= deltaTime) {
 				// "Physics"
-				aGameController.update(this, deltaTime);
+				aGameController.fixedUpdate(this, deltaTime);
 				ticks++;
 				elapsedTime -= 1;
 			}
@@ -64,7 +65,7 @@ public class GameController implements Runnable {
 			renderer.drawText("fps: " + fps, 0, HEIGHT - 16, Color.white.getRGB());
 			renderer.alphaProcessing();
 			// Initialize abstract methods
-			aGameController.render(this, renderer);
+			aGameController.update(this, renderer);
 			window.update();
 			input.update();
 			// Clear frame

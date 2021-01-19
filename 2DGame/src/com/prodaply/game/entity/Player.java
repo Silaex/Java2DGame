@@ -1,28 +1,16 @@
 package com.prodaply.game.entity;
 
-import com.prodaply.engine.util.Vector2f;
+import com.prodaply.engine.GameObject;
 
-public class Player extends Mob {
-	private Vector2f speed;
+public class Player extends GameObject {
+//	private Vector2f speed;
+//	private Vector2f direction;
+//	private Animation idleAnimation;
+//	private ArrayList<Sprite> idleAnimationSprites = new ArrayList<Sprite>();
+//	private Animation walkAnimation;
+//	private ArrayList<Sprite> walkAnimationSprites = new ArrayList<Sprite>();
 
-	public Player(Vector2f position) {
-		super(SpriteManager.PLAYER, position);
-		speed = new Vector2f(60);
-	}
-	
-	public void move(Vector2f direction) {
-		// We move only if there is a direction right ? Seems normal
-		if (!direction.isSame(new Vector2f(0, 0))) {
-			this.setPosition(this.getPosition().add(direction.mul(this.speed)));
-		}
-	}
-	
-	public Vector2f getSpeed() {
-		System.out.println("oaihzeh");
-		return speed;
-	}
-	
-	public void setSpeed(Vector2f speed) {
-		this.speed = speed;
+	public Player() {
+		
 	}
 }

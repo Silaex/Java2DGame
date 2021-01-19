@@ -13,20 +13,18 @@ public class InputHandler {
 	}
 
 	public void update(Input input, float deltaTime) {
-		Player p = GameManager.PLAYER;
 		Vector2f movementDirection = new Vector2f();
 		if (input.isKey(KeyEvent.VK_LEFT)) {
-			movementDirection.setX(-deltaTime);
+			movementDirection.x = -1;
 		}
-		else if (input.isKey(KeyEvent.VK_RIGHT)) {
-			movementDirection.setX(deltaTime);
+		 if (input.isKey(KeyEvent.VK_RIGHT)) {
+			movementDirection.x = 1;
 		}
-		else if (input.isKey(KeyEvent.VK_UP)) {
-			movementDirection.setY(-deltaTime);
+		 if (input.isKey(KeyEvent.VK_UP)) {
+			movementDirection.y = -1;
 		}
-		else if (input.isKey(KeyEvent.VK_DOWN)) {
-			movementDirection.setY(deltaTime);
+		 if (input.isKey(KeyEvent.VK_DOWN)) {
+			movementDirection.y = 1;
 		}
-		p.move(movementDirection);
 	}
 }

@@ -25,13 +25,13 @@ public class SpriteSheet {
 	}
 
 	// Get chunk of pixels of the spritesheet (a sprite)
-	public int[] getPixelsChunk(int col, int row, int size) {
-		int[] pixelsChunk = new int[size * size];
+	public int[] getPixelsChunk(int col, int row, int xSize, int ySize) {
+		int[] pixelsChunk = new int[xSize * ySize];
 		int tpIndex = 0;
-		int beginning = (col * size) + (row * size) * width;
+		int beginning = (col * xSize) + (row * ySize) * width;
 
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
+		for (int i = 0; i < ySize; i++) {
+			for (int j = 0; j < xSize; j++) {
 				int coord = j + i * width;
 				pixelsChunk[tpIndex] = pixels[beginning + coord];
 				tpIndex++;
@@ -39,5 +39,21 @@ public class SpriteSheet {
 		}
 
 		return pixelsChunk;
+	}
+	
+	public Sprite getSprite(int col, int row, int xSize, int ySize, int zIndex) {
+		int[] pixelsChunk = new int[xSize * ySize];
+		int tpIndex = 0;
+		int beginning = (col * xSize) + (row * ySize) * width;
+
+		for (int i = 0; i < ySize; i++) {
+			for (int j = 0; j < xSize; j++) {
+				int coord = j + i * width;
+				pixelsChunk[tpIndex] = pixels[beginning + coord];
+				tpIndex++;
+			}
+		}
+
+		return new Sprite(pixelsChunk, 0);
 	}
 }

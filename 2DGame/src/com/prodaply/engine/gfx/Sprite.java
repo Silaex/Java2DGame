@@ -5,9 +5,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import com.prodaply.engine.util.Vector2f;
+
 public class Sprite {
 	private int w, h;
 	private int[] pixels;
+	private Vector2f direction = new Vector2f(1, 1);
 	private int zIndex = 0;
 	
 	public Sprite(String path, int zIndex) {
@@ -27,12 +30,33 @@ public class Sprite {
 		
 		image.flush();
 	}
-	
+
 	public Sprite(int[] p, int zIndex) {
 		w = (int)Math.sqrt(p.length);
 		h = (int)Math.sqrt(p.length);
 		pixels = p;
+		
 		this.zIndex = zIndex;
+	}
+	
+	public Sprite(int[] p) {
+		w = (int)Math.sqrt(p.length);
+		h = (int)Math.sqrt(p.length);
+		pixels = p;
+		
+		this.zIndex = -999;
+	}
+	
+	public Vector2f getDirection() {
+		return direction;
+	}
+	
+	public void setDirection(Vector2f direction) {
+		this.direction = direction;
+	}
+	
+	public boolean hasAlpha() {
+		return this.zIndex != -999;
 	}
 
 	public int getW() {
@@ -53,6 +77,10 @@ public class Sprite {
 
 	public int[] getPixels() {
 		return pixels;
+	}
+
+	public void setPixels(int[] pixels) {
+		this.pixels = pixels;
 	}
 
 	public int getZIndex() {

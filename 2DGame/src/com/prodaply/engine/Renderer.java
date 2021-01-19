@@ -7,6 +7,7 @@ import java.util.Collections;
 import com.prodaply.engine.gfx.Font;
 import com.prodaply.engine.gfx.ImageRequest;
 import com.prodaply.engine.gfx.Sprite;
+import com.prodaply.engine.util.Vector2f;
 
 public class Renderer {
 	private int pixelsWidth, pixelsHeight;
@@ -14,7 +15,7 @@ public class Renderer {
 	private int[] zBuffer;
 	private int currentZIndex = 0;
 	private final int TRANSPARENT_COLOR_HEX = 0xffff00ff; // It's pink
-	private final int BACKGROUND_COLOR = 0xffea9a62;
+	private final int BACKGROUND_COLOR = 0xff000000; // 0xffea9a62;
 	
 	private Font font;
 	private ArrayList<ImageRequest> imageRequest = new ArrayList<ImageRequest>();
@@ -51,6 +52,8 @@ public class Renderer {
 			return;
 		} 
 		
+		zBuffer[pixelIndex] = currentZIndex;
+		
 		if (alpha == 255) {			
 			pixels[pixelIndex] = value;
 		} else {
@@ -81,7 +84,7 @@ public class Renderer {
 			if (ir.sprite.getZIndex() > currentZIndex) {
 				setZIndex(ir.zIndex);
 			}
-			drawSprite(ir.sprite, ir.offsetX, ir.offsetY);
+			drawSprite(ir.sprite, ir.offsetX, ir.offsetY, ir.sprite.getDirection());
 		}
 		isAlphaProcessing = false;
 		imageRequest.clear();
@@ -107,9 +110,20 @@ public class Renderer {
 	}
 	
 	// Draw a single Sprite
-	public void drawSprite(Sprite sprite, int offsetX, int offsetY) {
+	public void drawSprite(Sprite sprite, int offsetX, int offsetY, Vector2f direction) {
 		
-		if (sprite.getZIndex() > -1 && !isAlphaProcessing) {
+		if (direction.x == -1f) {
+			for (int i = 0; i < sprite.getH(); i++) {
+				for (int j = 0; j < sprite.getW() / 2; j++) {
+					int savePixel = sprite.getPixels()[j + i * sprite.getW()];
+					int flippedXIndex = ((i + 1) * sprite.getW() - 1) - j;
+					sprite.getPixels()[j + i * sprite.getW()] = sprite.getPixels()[flippedXIndex];
+					sprite.getPixels()[flippedXIndex] = savePixel;
+				}
+			}
+		}
+		
+		if (sprite.hasAlpha() && !isAlphaProcessing) {
 			imageRequest.add(new ImageRequest(sprite, sprite.getZIndex(), offsetX, offsetY));
 			return;
 		}
@@ -147,6 +161,10 @@ public class Renderer {
 				drawPixel(x + offsetX, y + offsetY, sprite.getPixels()[x + y * sprite.getW()]);
 			}
 		}
+	}
+	
+	public void drawSprite(Sprite sprite, Vector2f position) {
+		this.drawSprite(sprite, (int)position.x, (int)position.y, sprite.getDirection());
 	}
 	
 	public void setZIndex(int zIndex) {
