@@ -15,15 +15,15 @@ public class Renderer {
 	private int[] zBuffer;
 	private int currentZIndex = 0;
 	private final int TRANSPARENT_COLOR_HEX = 0xffff00ff; // It's pink
-	private final int BACKGROUND_COLOR = 0xff000000; // 0xffea9a62;
-	
+	private int backgroundColor = 0xff000000; // 0xffea9a62;
+
 	private Font font;
 	private ArrayList<ImageRequest> imageRequest = new ArrayList<ImageRequest>();
 	private boolean isAlphaProcessing = false;
 	
 	public Renderer(GameController gc) {
-		pixelsWidth = gc.getWidth();
-		pixelsHeight = gc.getHeight();
+		pixelsWidth = GameController.getWidth();
+		pixelsHeight = GameController.getHeight();
 		pixels = ((DataBufferInt)gc.getWindow().getImage().getRaster().getDataBuffer()).getData();
 		font = new Font("/font.png");
 		zBuffer = new int[pixels.length];
@@ -32,7 +32,7 @@ public class Renderer {
 	// Clear the screen
 	public void clear() {
 		for (int i = 0; i < pixels.length; i++) {
-			pixels[i] = BACKGROUND_COLOR;
+			pixels[i] = this.backgroundColor;
 			zBuffer[i] = 0;
 		}
 	}
@@ -169,6 +169,10 @@ public class Renderer {
 	
 	public void setZIndex(int zIndex) {
 		this.currentZIndex = zIndex;
+	}
+	
+	public void setBackgroundColor(int bg) {
+		this.backgroundColor = bg;
 	}
 
 }

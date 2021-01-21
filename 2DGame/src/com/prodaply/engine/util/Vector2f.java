@@ -2,6 +2,8 @@ package com.prodaply.engine.util;
 
 public class Vector2f {
 	public float x, y;
+	public static Vector2f up = new Vector2f(0, -1);
+	public static Vector2f right = new Vector2f(1, 0);
 	
 	public Vector2f() {
 		this.x = 0;
@@ -27,23 +29,30 @@ public class Vector2f {
 		return new Vector2f(a.mul(b));
 	}
 	
+	public Vector2f inverse() {
+		return new Vector2f(-this.x, -this.y);
+	}
+	
 	public static float Dot(Vector2f a, Vector2f b) {
-		return ((a.x * a.y) + (b.x * b.y));
+		return ((a.x * b.x) + (a.y * b.y));
 	}
 	
 	public static float Angle(Vector2f a, Vector2f b) {
-		float xLength = (a.x*a.x + b.x*b.x);
-		float yLength = (a.y*a.y + b.y*b.y);
-		
-		return (float)Math.floor(xLength * yLength) / (xLength * yLength);
+		return (float)Dot(a.normalized(), b.normalized()); //Dot(a, b) / new Vector2f(a.normalized()).mul(b.normalized()).getMagnitude();
 	}
 	
 	public float getMagnitude() {
 		return (float)Math.sqrt(x*x + y*y);
 	}
 	
+	public static float Distance(Vector2f a, Vector2f b) {
+		Vector2f dxy = new Vector2f(a).sub(b);
+		float distance = dxy.getMagnitude();
+		return distance;
+	}
+	
 	public Vector2f getDirection() {
-		if (getMagnitude() < 1) {
+		if (this.isZero()) {
 			return new Vector2f();
 		}
 		float xDir = (float)Math.round(getMagnitude() * (1 / getMagnitude()));
@@ -58,7 +67,10 @@ public class Vector2f {
 		if (getMagnitude() < 1) {
 			return new Vector2f();
 		}
-		return new Vector2f(this.x, this.y).mul(1 / getMagnitude());
+		float coeff = 1 / getMagnitude();
+		float nx = (this.x * coeff);
+		float ny = (this.y * coeff);
+		return new Vector2f(nx, ny);
 	}
 	
 	public String toString() {

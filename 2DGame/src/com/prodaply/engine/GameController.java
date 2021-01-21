@@ -1,13 +1,15 @@
 package com.prodaply.engine;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameController implements Runnable {
 	
 	protected final String NAME = "2D Game";
-	protected final int HEIGHT = 16*16;
-	protected final int WIDTH = 16*16;
-	protected final int SCALE = 3;
+	protected static final int WIDTH = 16*16;
+	protected static final int HEIGHT = 16*16;
+	protected static final int SCALE = 3;
 	
 	private Window window;
 	private Renderer renderer;
@@ -16,7 +18,7 @@ public class GameController implements Runnable {
 	private Thread thread;
 	
 	private boolean running = false;
-	private float FRAME_RATE = 144.0f;
+	protected static final float FRAME_RATE = 144.0f;
 	
 	
 	public GameController (AbstractGameController agc) {
@@ -46,7 +48,6 @@ public class GameController implements Runnable {
 		int ticks = 0;
 		int fps = 0;
 		float deltaTime = 1 / FRAME_RATE;
-		Time.deltaTime = deltaTime;
 		
 		while (running) {
 			long now = System.nanoTime();
@@ -62,10 +63,10 @@ public class GameController implements Runnable {
 			}
 			
 			// Game Loop
-			renderer.drawText("fps: " + fps, 0, HEIGHT - 16, Color.white.getRGB());
 			renderer.alphaProcessing();
 			// Initialize abstract methods
 			aGameController.update(this, renderer);
+			renderer.drawText("fps: " + fps, 0, HEIGHT - 16, Color.white.getRGB());
 			window.update();
 			input.update();
 			// Clear frame
@@ -97,15 +98,15 @@ public class GameController implements Runnable {
 		return NAME;
 	}
 	
-	public int getHeight() {
+	public static int getHeight() {
 		return HEIGHT;
 	}
 	
-	public int getWidth() {
+	public static int getWidth() {
 		return WIDTH;
 	}
 	
-	public int getScale() {
+	public static int getScale() {
 		return SCALE;
 	}
 	

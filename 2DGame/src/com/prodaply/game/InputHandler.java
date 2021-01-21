@@ -4,7 +4,6 @@ import java.awt.event.KeyEvent;
 
 import com.prodaply.engine.Input;
 import com.prodaply.engine.util.Vector2f;
-import com.prodaply.game.entity.Player;
 
 public class InputHandler {
 

@@ -8,14 +8,19 @@ import javax.imageio.ImageIO;
 public class SpriteSheet {
 	private int width, height;
 	private int[] pixels;
+	public int offsetX;
+	public int offsetY;
 	private BufferedImage image;
 
-	public SpriteSheet(String path) {
+	public SpriteSheet(String path, int offX, int offY) {
 		try {
 			image = ImageIO.read(SpriteSheet.class.getResourceAsStream(path));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		offsetX = offX;
+		offsetY = offY;
 
 		width = image.getWidth();
 		height = image.getHeight();
@@ -28,7 +33,7 @@ public class SpriteSheet {
 	public int[] getPixelsChunk(int col, int row, int xSize, int ySize) {
 		int[] pixelsChunk = new int[xSize * ySize];
 		int tpIndex = 0;
-		int beginning = (col * xSize) + (row * ySize) * width;
+		int beginning = (col * this.offsetX) + (row * this.offsetY) * width;
 
 		for (int i = 0; i < ySize; i++) {
 			for (int j = 0; j < xSize; j++) {
@@ -44,7 +49,7 @@ public class SpriteSheet {
 	public Sprite getSprite(int col, int row, int xSize, int ySize, int zIndex) {
 		int[] pixelsChunk = new int[xSize * ySize];
 		int tpIndex = 0;
-		int beginning = (col * xSize) + (row * ySize) * width;
+		int beginning = (col * this.offsetX) + (row * this.offsetY) * width;
 
 		for (int i = 0; i < ySize; i++) {
 			for (int j = 0; j < xSize; j++) {
