@@ -76,14 +76,14 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener, M
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		mouseX = (int)(e.getX() / gc.getScale());
-		mouseY = (int)(e.getY() / gc.getScale());
+		mouseX = (int)(e.getX() / gc.getScale().x);
+		mouseY = (int)(e.getY() / gc.getScale().y);
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		mouseX = (int)(e.getX() / gc.getScale());
-		mouseY = (int)(e.getY() / gc.getScale());
+		mouseX = (int)(e.getX() / gc.getScale().x);
+		mouseY = (int)(e.getY() / gc.getScale().y);
 	}
 
 	@Override

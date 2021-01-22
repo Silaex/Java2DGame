@@ -16,7 +16,7 @@ import com.prodaply.engine.util.Vector2f;
 
 public class Planet extends GameObject {
 	private Vector2f position;
-	private Vector2f speed;
+	public Vector2f speed;
 	private Rigidbody rb;
 	private SpriteRenderer spRenderer;
 	private CircleCollider cc;

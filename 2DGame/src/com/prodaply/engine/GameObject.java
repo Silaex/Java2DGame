@@ -17,12 +17,17 @@ public abstract class GameObject implements CollisionEvent {
 	
 	public GameObject(String name) {
 		this.name = name;
-		
 		components = new ArrayList<Component>();
 		this.addComponent(transform);
+		transform.position = new Vector2f();
 	}
 	
-	
+	public GameObject(String name, Vector2f position) {
+		this.name = name;
+		components = new ArrayList<Component>();
+		this.addComponent(transform);
+		this.transform.position = position;
+	}
 	
 	public <T extends Component> T getComponent(Class<T> componentClass) {
 		for (Component c : components) {
@@ -46,8 +51,17 @@ public abstract class GameObject implements CollisionEvent {
 	
 	public void addComponent(Component c) {
 		this.components.add(c);
-		c.start();
 		c.gameObject = this;
+		c.start();
+	}
+	
+	public abstract void Start();
+	public void start() {
+		for (int i = 0; i < components.size(); i++) {
+			Component c = components.get(i);
+			c.start();
+		}
+		this.Start();
 	}
 	
 	public abstract void FixedUpdate(float dt);
@@ -68,14 +82,6 @@ public abstract class GameObject implements CollisionEvent {
 		}
 	}
 	
-	public abstract void Start();
-	public void start() {
-		for (int i = 0; i < components.size(); i++) {
-			Component c = components.get(i);
-			c.start();
-		}
-		this.Start();
-	}
 	
 	/* ******* COLLISION INTERFACE METHODS ********  */
 	

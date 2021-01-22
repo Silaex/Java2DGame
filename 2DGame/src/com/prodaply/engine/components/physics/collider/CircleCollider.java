@@ -10,6 +10,10 @@ import com.prodaply.engine.util.Vector2f;
 public class CircleCollider extends Collider {
 	public int radius;
 
+	public CircleCollider(int radius, Vector2f offsetPosition) {
+		super(new Vector2f(radius * 2), offsetPosition);
+		this.radius = radius;
+	}
 	public CircleCollider(int radius) {
 		super(new Vector2f(radius * 2));
 		this.radius = radius;

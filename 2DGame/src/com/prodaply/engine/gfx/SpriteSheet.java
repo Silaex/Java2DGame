@@ -50,9 +50,9 @@ public class SpriteSheet {
 		int[] pixelsChunk = new int[xSize * ySize];
 		int tpIndex = 0;
 		int beginning = (col * this.offsetX) + (row * this.offsetY) * width;
-
 		for (int i = 0; i < ySize; i++) {
 			for (int j = 0; j < xSize; j++) {
+				System.out.println(j);
 				int coord = j + i * width;
 				pixelsChunk[tpIndex] = pixels[beginning + coord];
 				tpIndex++;

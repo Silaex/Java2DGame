@@ -15,7 +15,7 @@ public class Renderer {
 	private int[] zBuffer;
 	private int currentZIndex = 0;
 	private final int TRANSPARENT_COLOR_HEX = 0xffff00ff; // It's pink
-	private int backgroundColor = 0xff000000; // 0xffea9a62;
+	private int backgroundColor = 0xff28a82f; // 0xffea9a62;
 
 	private Font font;
 	private ArrayList<ImageRequest> imageRequest = new ArrayList<ImageRequest>();

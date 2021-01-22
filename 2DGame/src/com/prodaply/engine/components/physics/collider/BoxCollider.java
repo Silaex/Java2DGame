@@ -5,9 +5,11 @@ import com.prodaply.engine.util.Vector2f;
 
 public class BoxCollider extends Collider {
 
+	public BoxCollider(Vector2f dimension, Vector2f offsetPosition) {
+		super(dimension, offsetPosition);
+	}
 	public BoxCollider(Vector2f dimension) {
 		super(dimension);
-		
 	}
 
 	@Override

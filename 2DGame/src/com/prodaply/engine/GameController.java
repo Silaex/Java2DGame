@@ -1,15 +1,17 @@
 package com.prodaply.engine;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.Toolkit;
+
+import com.prodaply.engine.util.Vector2f;
 
 public class GameController implements Runnable {
 	
-	protected final String NAME = "2D Game";
-	protected static final int WIDTH = 16*16;
-	protected static final int HEIGHT = 16*16;
-	protected static final int SCALE = 3;
+	protected final String NAME = "The game that has no name";
+	protected static Vector2f scale = new Vector2f(4, 4);
+	protected static float resolution = Toolkit.getDefaultToolkit().getScreenSize().getSize().width / (float)Toolkit.getDefaultToolkit().getScreenSize().getSize().height;
+	protected static final int HEIGHT = 128;
+	protected static final int WIDTH = (int)(HEIGHT * resolution);
 	
 	private Window window;
 	private Renderer renderer;
@@ -18,7 +20,7 @@ public class GameController implements Runnable {
 	private Thread thread;
 	
 	private boolean running = false;
-	protected static final float FRAME_RATE = 144.0f;
+	protected static final float FRAME_RATE = 60.0f;
 	
 	
 	public GameController (AbstractGameController agc) {
@@ -72,6 +74,7 @@ public class GameController implements Runnable {
 			// Clear frame
 			renderer.clear();
 			
+			
 			try {
 				Thread.sleep((int)(((1 - elapsedTime) * 500) / FRAME_RATE));
 			} catch (InterruptedException e) {
@@ -106,8 +109,8 @@ public class GameController implements Runnable {
 		return WIDTH;
 	}
 	
-	public static int getScale() {
-		return SCALE;
+	public static Vector2f getScale() {
+		return scale;
 	}
 	
 	public Window getWindow() {
